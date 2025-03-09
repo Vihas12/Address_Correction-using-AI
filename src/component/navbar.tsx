@@ -4,20 +4,39 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-4 shadow-lg fixed top-0 w-full z-10">
+    <div className="p-4 shadow-lg fixed top-0 w-full z-10 text-black bg-white">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-white font-bold text-lg md:text-small">AI Adder</h1>
+        <h1 className="font-bold text-lg md:text-small">AI Adder</h1>
 
-        <div className="flex items-center space-x-6">
-          <a href="#" className="text-white hover:text-blue-200 transition duration-300">Home</a>
-          <a href="#" className="text-white hover:text-blue-200 transition duration-300">About</a>
-          <a href="#" className="text-white hover:text-blue-200 transition duration-300">Services</a>
-          <a href="#" className="text-white hover:text-blue-200 transition duration-300">Contact</a>
-          <button className="md:block bg-white text-blue-700 px-4 py-2 rounded-2xl hover:bg-blue-100 transition duration-300">Login</button>
-        </div>        
-    </div>
+        <div className="hidden md:flex items-center space-x-6">
+          <a href="#" className="hover:text-gray-500 transition duration-300">Home</a>
+          <a href="#" className="hover:text-gray-500 transition duration-300">About</a>
+          <a href="#" className="hover:text-gray-500 transition duration-300">Services</a>
+          <a href="#" className="hover:text-gray-500 transition duration-300">Contact</a>
+          <button className="bg-white text-black px-4 py-2 rounded-2xl hover:bg-gray-200 transition duration-300">Login</button>
+        </div>
+
+        <div className="md:hidden">
+          <button onClick={toggleMenu}>
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {menuOpen && (
+        <div className="md:hidden flex flex-col items-center space-y-4 mt-4">
+          <a href="#" className="hover:text-gray-500 transition duration-300">Home</a>
+          <a href="#" className="hover:text-gray-500 transition duration-300">About</a>
+          <a href="#" className="hover:text-gray-500 transition duration-300">Services</a>
+          <a href="#" className="hover:text-gray-500 transition duration-300">Contact</a>
+          <button className="bg-white text-black px-4 py-2 rounded-2xl hover:bg-gray-200 transition duration-300">Login</button>
+        </div>
+      )}
     </div>
   );
 }
