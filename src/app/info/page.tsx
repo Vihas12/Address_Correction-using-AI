@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CameraIcon, InfoIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image, { StaticImageData } from 'next/image';
@@ -11,10 +11,20 @@ import map from '@/images/map-images.jpg';
 interface AddressCompletionLandingProps {}
 
 const AddressCompletionLanding: React.FC<AddressCompletionLandingProps> = () => {
-  const [showMobileBlock, setShowMobileBlock] = useState<boolean>(false);
+    const [showMobileBlock, setShowMobileBlock] = useState<boolean>(false);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    
+        useEffect(() => {
+            const checkIfMobile = () => {
+                setIsMobile(window.innerWidth <= 768);
+            };
+            checkIfMobile();
+            window.addEventListener('resize', checkIfMobile);
+            return () => window.removeEventListener('resize', checkIfMobile);
+        }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 p-15 pt-25 flex justify-center">
+    <div className="min-h-screen bg-gray-100 p-15 pt-25 pb-60 flex justify-center">
       <div className="w-full max-w-4xl space-y-16">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -62,7 +72,7 @@ const AddressCompletionLanding: React.FC<AddressCompletionLandingProps> = () => 
           <Image
             src={easyocr as StaticImageData}
             alt="EasyOCR Model Demo"
-            className="rounded-2xl shadow-lg w-full md:w-1/2"
+            className="rounded-2xl shadow-lg w-full"
           />
         </motion.div>
 
