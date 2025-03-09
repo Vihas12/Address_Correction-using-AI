@@ -11,14 +11,14 @@ export default function Navbar() {
   return (
     <div className="p-4 shadow-lg fixed top-0 w-full z-10 text-black bg-white">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="font-bold text-lg md:text-small">AI Adder</h1>
+        <h1 className="font-bold text-3xl md:text-small">AI Adder</h1>
 
         <div className="hidden md:flex items-center space-x-6">
-          <a href="#" className="hover:text-gray-500 transition duration-300">Home</a>
-          <a href="#" className="hover:text-gray-500 transition duration-300">About</a>
-          <a href="#" className="hover:text-gray-500 transition duration-300">Services</a>
-          <a href="#" className="hover:text-gray-500 transition duration-300">Contact</a>
-          <button className="bg-white text-black px-4 py-2 rounded-2xl hover:bg-gray-200 transition duration-300">Login</button>
+          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">Home</a>
+          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">About</a>
+          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">Services</a>
+          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">Contact</a>
+          <button className="text-xl bg-white text-black px-4 py-2 rounded-2xl hover:bg-gray-200 transition duration-300">Login</button>
         </div>
 
         <div className="md:hidden">
