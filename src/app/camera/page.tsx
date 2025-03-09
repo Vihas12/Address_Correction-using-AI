@@ -7,6 +7,16 @@ const CameraInput: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  
+    useEffect(() => {
+      const checkIfMobile = () => {
+        setIsMobile(window.innerWidth <= 768);
+      };
+      checkIfMobile();
+      window.addEventListener('resize', checkIfMobile);
+      return () => window.removeEventListener('resize', checkIfMobile);
+    }, []);
 
   const requestCameraPermission = async () => {
     try {
@@ -52,6 +62,8 @@ const CameraInput: React.FC = () => {
   };
 
   return (
+    <div className="App">
+      {isMobile ? (
     <div style={{ textAlign: 'center', padding: '20px' }}>
       {!showCamera && (
         <button onClick={requestCameraPermission} style={{ fontSize: '24px', padding: '10px 20px' }}>
@@ -87,6 +99,9 @@ const CameraInput: React.FC = () => {
       )}
 
       <canvas ref={canvasRef} style={{ display: 'none' }} width="640" height="480" />
+    </div>
+    ) : 
+    <h1>Desktop</h1>}
     </div>
   );
 };
