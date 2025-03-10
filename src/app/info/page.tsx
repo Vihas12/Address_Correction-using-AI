@@ -8,9 +8,9 @@ import aiimage from '@/images/ai-images.jpg';
 import easyocr from '@/images/merged-text-detection.png';
 import map from '@/images/map-images.jpg';
 
-interface AddressCompletionLandingProps {}
+interface Info {}
 
-const AddressCompletionLanding: React.FC<AddressCompletionLandingProps> = () => {
+const Info: React.FC<Info> = () => {
     const [showMobileBlock, setShowMobileBlock] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     
@@ -132,4 +132,4 @@ const AddressCompletionLanding: React.FC<AddressCompletionLandingProps> = () => 
   );
 };
 
-export default AddressCompletionLanding;
+export default Info;
