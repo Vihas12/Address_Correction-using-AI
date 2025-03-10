@@ -8,6 +8,9 @@ function Webcam() {
 
   const [hasPhoto, setPhoto] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [detectedText, setDetectedText] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const checkIfMobile = () => {
@@ -41,7 +44,7 @@ function Webcam() {
       });
   };
 
-  const takePhoto = () => {
+  const takePhoto = async () => {
     const width = 400;
     const height = width / (16 / 9);
 
@@ -57,8 +60,42 @@ function Webcam() {
         ctx.drawImage(video, 0, 0, width, height);
         setPhoto(true);
       }
+
+      const imageDataUrl = photo.toDataURL("image/jpeg");
+      await sendImage(imageDataUrl);
     }
   };
+
+  const sendImage = async (imageDataUrl: string) => {
+    setLoading(true);
+    setError("");
+    setDetectedText("");
+  
+    try {
+      const response = await fetch("/api/process-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: imageDataUrl }),
+      });
+  
+      // Check if the response is OK (status 200-299)
+      if (!response.ok) {
+        const text = await response.text(); // Read as text if it's not JSON
+        console.error("Error response from server:", text);
+        throw new Error("Failed to process image");
+      }
+  
+      // Ensure the response is in JSON format
+      const data = await response.json();
+      setDetectedText(data.text);
+  
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   const closePhoto = () => {
     const photo = photoRef.current;
@@ -68,6 +105,7 @@ function Webcam() {
         ctx.clearRect(0, 0, photo.width, photo.height);
       }
       setPhoto(false);
+      setDetectedText("");
     }
   };
 
@@ -80,20 +118,20 @@ function Webcam() {
             <button
               className="absolute bottom-5 left-5 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-2xl font-bold transition-all duration-400 hover:from-pink-500 hover:to-purple-500"
               onClick={takePhoto}
+              disabled={loading}
             >
-              SNAP
+              {loading ? "Processing..." : "SNAP"}
             </button>
           </div>
+          {error && <p className="text-red-500">{error}</p>}
+          {detectedText && <p className="text-green-500">Detected Text: {detectedText}</p>}
           <div
             className={`fixed top-12 left-0 w-full h-full flex justify-center bg-black p-4 sm:p-8 md:p-20 transition-transform duration-500 ${
               hasPhoto ? "translate-x-0" : "translate-x-full"
             }`}
           >
             <div className="relative w-full max-w-lg">
-              <canvas
-                className="w-full h-auto rounded-lg shadow-lg"
-                ref={photoRef}
-              ></canvas>
+              <canvas className="w-full h-auto rounded-lg shadow-lg" ref={photoRef}></canvas>
               <button
                 className="absolute top-50 left-4 sm:left-8 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xl sm:text-2xl font-bold transition-all duration-400 hover:from-pink-500 hover:to-purple-500"
                 onClick={closePhoto}
@@ -104,16 +142,16 @@ function Webcam() {
           </div>
         </div>
       ) : (
+        <div className="min-h-screen ">
         <div className="p-15 pt-25 mt-16 bg-blue-100 rounded-2xl shadow-lg">
           <h2 className="text-2xl font-semibold">Mobile Exclusive Feature</h2>
           <p className="text-lg">
-            Capture an image of a handwritten address and let our AI model
-            complete the address for you with incredible accuracy.
+            Capture an image of a handwritten address and let our AI model complete the address for you with incredible accuracy.
           </p>
           <p className="text-lg">
-            Enjoy real-time suggestions and address corrections directly on your
-            Mobile
+            Enjoy real-time suggestions and address corrections directly on your Mobile
           </p>
+        </div>
         </div>
       )}
     </div>
