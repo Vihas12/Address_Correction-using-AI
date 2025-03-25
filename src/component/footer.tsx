@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from "next/link";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 
 export default function Footer() {
@@ -7,10 +8,10 @@ export default function Footer() {
       <div className='container mx-auto flex flex-col items-start space-y-6 px-4 md:px-8 lg:px-16'>
         <div className='w-full flex flex-col md:flex-row justify-start md:justify-between space-y-4 md:space-y-0'>
           <div className='flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8'>
-            <a href='#' className='text-lg hover:text-gray-500 transition duration-300 transform'>Home</a>
-            <a href='#' className='text-lg hover:text-gray-500 transition duration-300 transform'>About</a>
-            <a href='#' className='text-lg hover:text-gray-500 transition duration-300 transform'>Services</a>
-            <a href='#' className='text-lg hover:text-gray-500 transition duration-300 transform'>Contact</a>
+            <Link href='#' className='text-lg hover:text-gray-500 transition duration-300 transform'>Home</Link>
+            <Link href='/info' className='text-lg hover:text-gray-500 transition duration-300 transform'>About</Link>
+            <Link href='#' className='text-lg hover:text-gray-500 transition duration-300 transform'>Services</Link>
+            <Link href='#' className='text-lg hover:text-gray-500 transition duration-300 transform'>Contact</Link>
           </div>
         </div>
         <div className='flex space-x-6'>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
@@ -14,10 +15,10 @@ export default function Navbar() {
         <h1 className="font-bold text-3xl md:text-small">AI Adder</h1>
 
         <div className="hidden md:flex items-center space-x-6">
-          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">Home</a>
-          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">About</a>
-          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">Services</a>
-          <a href="#" className="text-xl hover:text-gray-500 transition duration-300">Contact</a>
+          <Link href="#" className="text-xl hover:text-gray-500 transition duration-300">Home</Link>
+          <Link href="/info" className="text-xl hover:text-gray-500 transition duration-300">About</Link>
+          <Link href="/hello" className="text-xl hover:text-gray-500 transition duration-300">Services</Link>
+          <Link href="#" className="text-xl hover:text-gray-500 transition duration-300">Contact</Link>
           <button className="text-xl bg-white text-black px-4 py-2 rounded-2xl hover:bg-gray-200 transition duration-300">Login</button>
         </div>
 
@@ -31,8 +32,8 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden flex flex-col items-center space-y-4 mt-4">
           <a href="#" className="hover:text-gray-500 transition duration-300">Home</a>
-          <a href="#" className="hover:text-gray-500 transition duration-300">About</a>
-          <a href="#" className="hover:text-gray-500 transition duration-300">Services</a>
+          <a href="/info" className="hover:text-gray-500 transition duration-300">About</a>
+          <a href="/hello" className="hover:text-gray-500 transition duration-300">Services</a>
           <a href="#" className="hover:text-gray-500 transition duration-300">Contact</a>
           <button className="bg-white text-black px-4 py-2 rounded-2xl hover:bg-gray-200 transition duration-300">Login</button>
         </div>
