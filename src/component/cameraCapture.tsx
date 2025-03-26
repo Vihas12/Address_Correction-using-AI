@@ -2,7 +2,7 @@
 import React, { useRef, useState, useCallback } from 'react';
 import { Camera, Image as ImageIcon, RotateCcw } from 'lucide-react';
 // import { Button } from '@/components/ui/button';
-// import { base64ToFile } from '@/utils/imageProcessing';
+import { base64ToFile } from '@/utils/imageProcessing';
 
 interface CameraCaptureProps {
   onImageCaptured: (file: File) => void;
@@ -51,33 +51,33 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
     }
   }, [stream]);
 
-//   const captureImage = useCallback(() => {
-//     if (!videoRef.current || !canvasRef.current) return;
+  const captureImage = useCallback(() => {
+    if (!videoRef.current || !canvasRef.current) return;
     
-//     const video = videoRef.current;
-//     const canvas = canvasRef.current;
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
     
-//     // Set canvas dimensions to match video
-//     canvas.width = video.videoWidth;
-//     canvas.height = video.videoHeight;
+    // Set canvas dimensions to match video
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
     
-//     // Draw the current video frame onto the canvas
-//     const ctx = canvas.getContext('2d');
-//     if (ctx) {
-//       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // Draw the current video frame onto the canvas
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       
-//       // Convert the canvas to a data URL
-//       const imageDataUrl = canvas.toDataURL('image/jpeg');
-//       setCapturedImage(imageDataUrl);
+      // Convert the canvas to a data URL
+      const imageDataUrl = canvas.toDataURL('image/jpeg');
+      setCapturedImage(imageDataUrl);
       
-//       // Stop the camera
-//       stopCamera();
+      // Stop the camera
+      stopCamera();
       
-//       // Convert to file and pass to parent component
-//       const imageFile = base64ToFile(imageDataUrl, 'captured-address.jpg');
-//       onImageCaptured(imageFile);
-//     }
-//   }, [onImageCaptured, stopCamera]);
+      // Convert to file and pass to parent component
+      const imageFile = base64ToFile(imageDataUrl, 'captured-address.jpg');
+      onImageCaptured(imageFile);
+    }
+  }, [onImageCaptured, stopCamera]);
 
   const retakePhoto = useCallback(() => {
     setCapturedImage(null);
@@ -137,7 +137,7 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
         
         {isCameraActive && (
           <button
-            // onClick={captureImage}
+            onClick={captureImage}
             className="h-12 px-6 rounded-full shadow-button bg-primary hover:bg-primary/90 transition-all"
           >
             <Camera className="mr-2 h-4 w-4" />
