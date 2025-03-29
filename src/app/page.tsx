@@ -7,7 +7,7 @@ import Image, { StaticImageData } from 'next/image';
 import aiimage from '@/images/ai-images.jpg';
 import easyocr from '@/images/merged-text-detection.png';
 import map from '@/images/map-images.jpg';
-import CameraCapture from '@/component/cameraCapture';
+// import CameraCapture from '@/component/cameraCapture';
 
 interface Info {}
 
@@ -129,7 +129,7 @@ const Info: React.FC<Info> = () => {
         </motion.div>
       )}
     </div>
-    <CameraCapture onImageCaptured={(file: File) => console.log(file)} />
+    
   </div>
 
   );
