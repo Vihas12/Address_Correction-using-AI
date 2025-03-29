@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { CameraIcon, InfoIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import aiimage from '@/images/ai-images.jpg';
 import easyocr from '@/images/merged-text-detection.png';
@@ -12,17 +13,6 @@ import map from '@/images/map-images.jpg';
 interface Info {}
 
 const Info: React.FC<Info> = () => {
-    const [showMobileBlock, setShowMobileBlock] = useState<boolean>(false);
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-    
-        useEffect(() => {
-            const checkIfMobile = () => {
-                setIsMobile(window.innerWidth <= 768);
-            };
-            checkIfMobile();
-            window.addEventListener('resize', checkIfMobile);
-            return () => window.removeEventListener('resize', checkIfMobile);
-        }, []);
 
   return (
     <div className="min-h-[calc(100vh-120px)] bg-gray-100 p-15 pt-25 pb-20 flex justify-center">
@@ -55,7 +45,7 @@ const Info: React.FC<Info> = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="bg-white rounded-2xl shadow-lg p-8 flex flex-col md:flex-row items-center gap-8 transform hover:scale-105 transition-transform"
+        className="border-2 border-blue-500 bg-white rounded-2xl shadow-lg p-8 flex flex-col md:flex-row items-center gap-8 transform hover:scale-105 transition-transform"
       >
         <div>
           <h2 className="text-2xl font-semibold mb-4 flex items-center">
@@ -103,14 +93,13 @@ const Info: React.FC<Info> = () => {
           </p>
           <button
             className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-2xl hover:bg-blue-600"
-            onClick={() => setShowMobileBlock(true)}
-          >
+          ><Link href="/hello">
             Try Address Completion
+            </Link>
           </button>
         </div>
       </motion.div>
 
-      {showMobileBlock && (
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -120,14 +109,13 @@ const Info: React.FC<Info> = () => {
           <h2 className="text-2xl font-semibold">Mobile Exclusive Feature</h2>
           <p className="text-lg">
             Capture an image of a handwritten address and let our AI model
-            complete the address for you with incredible accuracy.
+            complete the address for you with good accuracy.
           </p>
           <p className="text-lg">
             Enjoy real-time suggestions and address corrections directly on your
             mobile device.
           </p>
         </motion.div>
-      )}
     </div>
     
   </div>

@@ -94,7 +94,7 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
   }, [stream]);
 
   return (
-    <div className="glass-panel p-4 rounded-xl w-full max-w-lg mx-auto">
+    <div className="border-3 border-blue-500 glass-panel p-4 rounded-xl w-full max-w-lg mx-auto mt-30 mb-7">
       <div className="aspect-[4/3] bg-gray-100 relative rounded-lg overflow-hidden">
         {capturedImage ? (
           <img 
@@ -123,12 +123,12 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
         <canvas ref={canvasRef} className="hidden" />
       </div>
       
-      <div className="mt-4 flex gap-3 justify-center">
+      <div className="mt-4 flex gap-3 justify-center ">
         {!isCameraActive && !capturedImage && (
           <button
             onClick={startCamera}
             disabled={isLoading}
-            className="h-12 px-5 rounded-full shadow-button transition-all hover:shadow-lg"
+            className="border border-blue-500 h-12 px-5 rounded-full shadow-button flex items-center transition-all hover:shadow-lg"
           >
             <Camera className="mr-2 h-4 w-4" />
             {isLoading ? 'Starting Camera...' : 'Start Camera'}
@@ -138,7 +138,7 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
         {isCameraActive && (
           <button
             onClick={captureImage}
-            className="h-12 px-6 rounded-full shadow-button bg-primary hover:bg-primary/90 transition-all"
+            className="bg-blue-500 text-white h-12 px-6 rounded-full shadow-button flex items-center hover:bg-blue-500/90 transition-all"
           >
             <Camera className="mr-2 h-4 w-4" />
             Capture Address
@@ -148,8 +148,7 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
         {capturedImage && (
           <button
             onClick={retakePhoto}
-            // variant="outline"
-            className="h-12 px-5 rounded-full shadow-button transition-all hover:shadow-lg"
+            className="border border-blue-500 h-12 px-5 rounded-full shadow-button flex items-center transition-all hover:shadow-lg"
           >
             <RotateCcw className="mr-2 h-4 w-4" />
             Retake Photo

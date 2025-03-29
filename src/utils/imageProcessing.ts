@@ -1,5 +1,9 @@
-export const extractTextFromImage = async (imageFile: File): Promise<string> => {
-  console.log("Processing image:", imageFile.name);
+interface ApiResponse {
+  extracted_text: string;
+  completed_addresses: string[];
+}
+
+export const extractTextFromImage = async (imageFile: File): Promise<{ extractedText: string; completedAddresses: string[] } | string> => {
 
   // Prepare the form data for API request
   const formData = new FormData();
@@ -10,17 +14,27 @@ export const extractTextFromImage = async (imageFile: File): Promise<string> => 
       method: "POST",
       body: formData,
     });
-
+  
     if (!response.ok) {
       throw new Error("Failed to extract text");
     }
-
+  
     const data = await response.json();
-    return data.text || "No text detected.";
+  
+    // Return both the extracted text and the completed addresses
+    if (data.extracted_text && data.completed_addresses.length > 0) {
+      return {
+        extractedText: data.extracted_text,
+        completedAddresses: data.completed_addresses,
+      } as { extractedText: string; completedAddresses: string[] };
+    }
+  
+    return "No text or address found.";
   } catch (error) {
     console.error("OCR API error:", error);
     return "Error processing image.";
   }
+  
 };
 
 /**
