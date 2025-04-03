@@ -1,8 +1,9 @@
-
 interface ApiResponse {
   extracted_text: string;
   completed_addresses: string[];
 }
+
+let completedAddresses: string[] = []; // Store addresses globally
 
 // ✅ Utility function: Convert File to Base64
 export const fileToBase64 = (file: File): Promise<string> => {
@@ -35,11 +36,8 @@ export const extractTextFromImage = async (
 ): Promise<{ extractedText: string; completedAddresses: string[] } | string> => {
   try {
     // Convert File to Base64
-    const base64 = await fileToBase64(imageFile); // 🔥 Fix here (Using the correct function)
+    const base64 = await fileToBase64(imageFile);
 
-    console.log("Base64 Image:", base64); 
-    console.log("Image File:", imageFile); 
-    // Debugging line
     // Upload image to Cloudinary via API
     const uploadResponse = await fetch("/api/upload", {
       method: "POST",
@@ -52,18 +50,14 @@ export const extractTextFromImage = async (
     }
 
     const { url } = await uploadResponse.json();
+    console.log("Cloudinary URL:", url);
 
-    console.log("Cloudinary URL:", url); // Debugging line
-    
     // Send Cloudinary URL to OCR API
-    const ocrResponse = await fetch(
-      "https://address-api-vihas12s-projects.vercel.app/ocr",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image_url: url }),
-      }
-    );
+    const ocrResponse = await fetch("http://127.0.0.1:5000/ocr", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image_url: url }),
+    });
 
     if (!ocrResponse.ok) {
       throw new Error("Failed to extract text");
@@ -71,11 +65,23 @@ export const extractTextFromImage = async (
 
     const data: ApiResponse = await ocrResponse.json();
 
+    if (data.completed_addresses.length > 0) {
+      completedAddresses = data.completed_addresses; // Store addresses globally
+    }
+
     return data.extracted_text && data.completed_addresses.length > 0
-      ? { extractedText: data.extracted_text, completedAddresses: data.completed_addresses }
+      ? {
+          extractedText: data.extracted_text,
+          completedAddresses: data.completed_addresses,
+        }
       : "No text or address found.";
   } catch (error) {
     console.error("OCR API error:", error);
     return "Error processing image.";
   }
+};
+
+// ✅ Function to Retrieve Completed Addresses
+export const getCompletedAddresses = (): string[] => {
+  return completedAddresses;
 };

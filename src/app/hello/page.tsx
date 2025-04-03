@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CameraCapture from "@/component/cameraCapture";
 import { extractTextFromImage } from "@/utils/imageProcessing";
-
+import { useRouter } from "next/navigation";
 // Define types for the API response
 interface ApiResponse {
   extractedText: string;
@@ -12,7 +12,9 @@ interface ApiResponse {
 
 export default function Hello() {
   const [extractedText, setExtractedText] = useState<string>("");
-  const [completedAddresses, setCompletedAddresses] = useState<string[]>([]);
+  // const [completedAddresses, setCompletedAddresses] = useState<string[]>([]);
+
+  const router = useRouter();
 
   const handleImageCapture = async (file: File) => {
     try {
@@ -21,14 +23,16 @@ export default function Hello() {
       if (response.extractedText) {
         setExtractedText(response.extractedText);
       }
-
-      if (response.completedAddresses) {
-        setCompletedAddresses(response.completedAddresses);
-      }
     } catch (error) {
       console.error("Error extracting text:", error);
     }
   };
+
+  useEffect(() => {
+    if (extractedText) {
+      router.push("/cmopt", );
+    }
+  }, [extractedText, router]);
 
   return (
     <div>
@@ -39,7 +43,7 @@ export default function Hello() {
           <p>{extractedText}</p>
         </div>
       )}
-      {completedAddresses.length > 0 && (
+      {/* {completedAddresses.length > 0 && (
         <div>
           <h3>Completed Addresses:</h3>
           <ul>
@@ -48,7 +52,7 @@ export default function Hello() {
             ))}
           </ul>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

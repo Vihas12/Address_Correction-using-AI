@@ -9,7 +9,7 @@ export default function Footer() {
         <div className='w-full flex flex-col md:flex-row justify-start md:justify-between space-y-4 md:space-y-0'>
           <div className='flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8'>
             <Link href='/' className='text-lg hover:text-white transition duration-300 transform'>Home</Link>
-            <Link href='/info' className='text-lg hover:text-white transition duration-300 transform'>About</Link>
+            <Link href='/dashboard' className='text-lg hover:text-white transition duration-300 transform'>About</Link>
             <Link href='/hello' className='text-lg hover:text-white transition duration-300 transform'>Services</Link>
             <Link href='#' className='text-lg hover:text-white transition duration-300 transform'>Contact</Link>
           </div>
@@ -18,7 +18,7 @@ export default function Footer() {
           <Link href='/' className='hover:text-white transition duration-300 transform hover:scale-125'>
             <FaFacebookF size={24} />
           </Link>
-          <Link href='/info' className='hover:text-white transition duration-300 transform hover:scale-125'>
+          <Link href='/dashboard' className='hover:text-white transition duration-300 transform hover:scale-125'>
             <FaTwitter size={24} />
           </Link>
           <Link href='/hello' className='hover:text-white transition duration-300 transform hover:scale-125'>

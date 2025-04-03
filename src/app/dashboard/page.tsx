@@ -8,9 +8,9 @@ import aiimage from '@/images/ai-images.jpg';
 import easyocr from '@/images/merged-text-detection.png';
 import map from '@/images/map-images.jpg';
 
-interface Info {}
+interface Dashboard {}
 
-const Info: React.FC<Info> = () => {
+const Dashboard: React.FC<Dashboard> = () => {
     const [showMobileBlock, setShowMobileBlock] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     
@@ -132,4 +132,4 @@ const Info: React.FC<Info> = () => {
   );
 };
 
-export default Info;
+export default Dashboard;
