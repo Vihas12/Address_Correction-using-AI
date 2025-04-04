@@ -19,8 +19,8 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-6">
           <Link href="/" className="text-xl hover:text-white transition duration-300">Home</Link>
           <Link href="/dashboard" className="text-xl hover:text-white transition duration-300">About</Link>
-          <Link href="/hello" className="text-xl hover:text-white transition duration-300">Services</Link>
-          <Link href="#" className="text-xl hover:text-white transition duration-300">Contact</Link>
+          <Link href="/cam" className="text-xl hover:text-white transition duration-300">Services</Link>
+          <Link href="/" className="text-xl hover:text-white transition duration-300">Contact</Link>
           {isAuthenticated ? (
             <button className="text-xl bg-red-500 text-white px-4 py-2 rounded-2xl hover:bg-red-600 transition duration-300">
               <LogoutLink>Logout</LogoutLink>
@@ -41,8 +41,8 @@ export default function Navbar() {
         <div className="md:hidden flex flex-col items-center space-y-4 mt-4">
           <Link href="/" className="hover:text-white transition duration-300">Home</Link>
           <Link href="/dashboard" className="hover:text-white transition duration-300">About</Link>
-          <Link href="/hello" className="hover:text-white transition duration-300">Services</Link>
-          <Link href="#" className="hover:text-white transition duration-300">Contact</Link>
+          <Link href="/cam" className="hover:text-white transition duration-300">Services</Link>
+          <Link href="/" className="hover:text-white transition duration-300">Contact</Link>
           {isAuthenticated ? (
             <button className="bg-red-500 text-white px-4 py-2 rounded-2xl hover:bg-red-600 transition duration-300">
               <LogoutLink>Logout</LogoutLink>
