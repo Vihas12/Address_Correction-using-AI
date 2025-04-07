@@ -1,9 +1,11 @@
+// import { Client } from "@gradio/client";
+
 interface ApiResponse {
   extracted_text: string;
   completed_addresses: string[];
 }
 
-let completedAddresses: string[] = []; // Store addresses globally
+let completedAddress: string[] = []; // Store addresses globally
 
 // ✅ Utility function: Convert File to Base64
 export const fileToBase64 = (file: File): Promise<string> => {
@@ -35,10 +37,10 @@ export const extractTextFromImage = async (
   imageFile: File
 ): Promise<{ extractedText: string; completedAddresses: string[] } | string> => {
   try {
-    // Convert File to Base64
+    // Step 1: Convert File to Base64
     const base64 = await fileToBase64(imageFile);
 
-    // Upload image to Cloudinary via API
+    // Step 2: Upload image to Cloudinary via API
     const uploadResponse = await fetch("/api/upload", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -50,38 +52,51 @@ export const extractTextFromImage = async (
     }
 
     const { url } = await uploadResponse.json();
-    console.log("Cloudinary URL:", url);
 
-    // Send Cloudinary URL to OCR API
-    const ocrResponse = await fetch("http://127.0.0.1:5000/ocr", {
+    // Step 3: Extract text from image using /api/extract
+    const ocrResponse = await fetch("/api/extract", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ image_url: url }),
+      body: JSON.stringify({ imageUrl: url }),
     });
 
     if (!ocrResponse.ok) {
-      throw new Error("Failed to extract text");
+      throw new Error("OCR extraction failed");
     }
 
-    const data: ApiResponse = await ocrResponse.json();
+    const { extractedText } = await ocrResponse.json();
 
-    if (data.completed_addresses.length > 0) {
-      completedAddresses = data.completed_addresses; // Store addresses globally
+    // Step 4: Complete address using /api/address-complete
+    const addressResponse = await fetch("/api/address-complete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: extractedText }),
+    });
+
+    if (!addressResponse.ok) {
+      throw new Error("Address completion failed");
     }
 
-    return data.extracted_text && data.completed_addresses.length > 0
+    const addressData = await addressResponse.json();
+    const completedAddresses = (addressData.completedAddresses || []).map((addr: string) =>
+      addr.replace(/(\d{6})\.0/, "$1") // remove trailing `.0` after 6-digit pincode
+    );
+    
+    completedAddress = completedAddresses; // Store addresses globally
+
+    return extractedText && completedAddresses.length
       ? {
-          extractedText: data.extracted_text,
-          completedAddresses: data.completed_addresses,
+          extractedText,
+          completedAddresses,
         }
       : "No text or address found.";
   } catch (error) {
-    console.error("OCR API error:", error);
+    console.error("Error in image processing pipeline:", error);
     return "Error processing image.";
   }
 };
 
 // ✅ Function to Retrieve Completed Addresses
 export const getCompletedAddresses = (): string[] => {
-  return completedAddresses;
+  return completedAddress;
 };

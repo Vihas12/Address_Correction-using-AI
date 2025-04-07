@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏠 Indian Address Completion with OCR & Machine Learning
 
-## Getting Started
+This project extracts handwritten or printed Indian addresses from uploaded images using **EasyOCR** and intelligently completes missing address components using a custom **ML model**. Ideal for digitizing delivery info, verifying user-submitted forms, or enhancing datasets with partial address information.
 
-First, run the development server:
+---
+
+## 📸 How It Works
+
+1. **User uploads an image** (containing an address).
+2. The image is uploaded to **Cloudinary**.
+3. The image URL is sent to the **OCR API** (EasyOCR-based).
+4. Extracted text is parsed for address components.
+5. An ML model fills in missing parts like district, pincode, or state.
+6. Returns: Extracted text and completed address suggestions.
+
+---
+
+## 🚀 Tech Stack
+
+| Layer         | Technology        |
+|---------------|-------------------|
+| 🧠 OCR         | [EasyOCR](https://github.com/JaidedAI/EasyOCR) |
+| 🏗️ Backend API | FastAPI + Render for hosting |
+| 📦 Storage     | Cloudinary (for image upload) |
+| 🧪 ML Model    | Trained using Indian address datasets (city, area, pincode, etc.) |
+| 🌐 Frontend    | Next.js (or your preferred framework) |
+
+---
+
+## 🧠 ML Model Details
+
+The ML model is trained to:
+- Predict missing fields in Indian addresses (district, pincode, etc.)
+- Use partial information (e.g., city + area) to intelligently guess full addresses
+- Trained using public datasets like:
+  - Indian Postal Codes
+  - City/District-State mappings
+
+Model type: **k Nearest Neighbour** (configurable)  
+Format: `.pkl` or `.joblib` for easy deployment
+
+---
+
+## 🛠️ Setup Instructions
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone https://github.com/Vihas12/Address_Correction-using-AI
+cd address-completion-ocr
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
