@@ -1,4 +1,4 @@
-import  Dashboard from './(routes)/dashboard/page';
+import  Dashboard from './dashboard/page';
 
 interface Home {}
 

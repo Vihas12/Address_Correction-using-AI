@@ -1,58 +1,18 @@
-"use client";
+// /app/cam/page.tsx
 
-import { useState, useEffect } from "react";
-import CameraCapture from "@/component/cameraCapture";
-import { extractTextFromImage } from "@/utils/imageProcessing";
-import { useRouter } from "next/navigation";
-// Define types for the API response
-interface ApiResponse {
-  extractedText: string;
-  completedAddresses: string[];
-}
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
+import CameraPage  from "@/component/CameraPage"; // Adjusted path to locate the module
 
-export default function Hello() {
-  const [extractedText, setExtractedText] = useState<string>("");
-  // const [completedAddresses, setCompletedAddresses] = useState<string[]>([]);
+export const dynamic = "force-dynamic"; // Allow SSR
 
-  const router = useRouter();
+export default async function ProtectedCameraPage() {
+  const { isAuthenticated } = getKindeServerSession();
+  const authenticated = await isAuthenticated();
 
-  const handleImageCapture = async (file: File) => {
-    try {
-      const response: ApiResponse = await extractTextFromImage(file);
+  if (!authenticated) {
+    redirect("/api/auth/login");
+  }
 
-      if (response.extractedText) {
-        setExtractedText(response.extractedText);
-      }
-    } catch (error) {
-      console.error("Error extracting text:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (extractedText) {
-      router.push("/cmopt", );
-    }
-  }, [extractedText, router]);
-
-  return (
-    <div>
-      <CameraCapture onImageCaptured={handleImageCapture} />
-      {extractedText && (
-        <div>
-          <h3>Extracted Text:</h3>
-          <p>{extractedText}</p>
-        </div>
-      )}
-      {/* {completedAddresses.length > 0 && (
-        <div>
-          <h3>Completed Addresses:</h3>
-          <ul>
-            {completedAddresses.map((address, index) => (
-              <li key={index}>{address}</li>
-            ))}
-          </ul>
-        </div>
-      )} */}
-    </div>
-  );
+  return <CameraPage />;
 }
