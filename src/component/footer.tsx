@@ -18,17 +18,17 @@ export default function Footer() {
           <Link href='/' className='hover:text-white transition duration-300 transform hover:scale-125'>
             <FaFacebookF size={24} />
           </Link>
-          <Link href='/about' className='hover:text-white transition duration-300 transform hover:scale-125'>
+          <Link href='/' className='hover:text-white transition duration-300 transform hover:scale-125'>
             <FaTwitter size={24} />
           </Link>
-          <Link href='/cam' className='hover:text-white transition duration-300 transform hover:scale-125'>
+          <Link href='/' className='hover:text-white transition duration-300 transform hover:scale-125'>
             <FaInstagram size={24} />
           </Link>
-          <Link href='/contact' className='hover:text-white transition duration-300 transform hover:scale-125'>
+          <Link href='https://www.linkedin.com/in/vihas-poojari' className='hover:text-white transition duration-300 transform hover:scale-125'>
             <FaLinkedinIn size={24} />
           </Link>
         </div>
-        <p className='text-sm opacity-75'>&copy; 2025 Your Company. All rights reserved.</p>
+        <p className='text-sm opacity-75'>&copy; 2025 AI Adder. All rights reserved.</p>
       </div>
     </div>
   );
