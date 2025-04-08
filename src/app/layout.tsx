@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/component/footer";
 import Navbar from "@/component/navbar";
+import KindeWrapper from "./KindeWrapper"; // ✅ important
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,22 +17,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "AI Adder",
-  description: "A address completion tool which uses  AI which is trained on the data of the users",
+  description: "An address completion tool using AI.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar />
-        {children}
-        <Footer />
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <KindeWrapper>
+          <Navbar />
+          {children}
+          <Footer />
+        </KindeWrapper>
       </body>
     </html>
   );
