@@ -1,7 +1,3 @@
-// import { Client } from "@gradio/client";
-
-import { body } from "framer-motion/client";
-
 interface ApiResponse {
   extracted_text: string;
   completed_addresses: string[];
