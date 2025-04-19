@@ -5,6 +5,7 @@ const AddressSchema = new Schema(
     addressUrl: {
       type: String,
       required: true,
+      unique: true,
     },
     extractedText: {
       type: [String], 
@@ -13,6 +14,11 @@ const AddressSchema = new Schema(
     addressList: {
       type: [String], 
       required: true,
+    },
+    correctAddress: {
+      type: [String],
+      required: true,
+      default: [], 
     },
   },
   {
@@ -26,7 +32,7 @@ export interface Address {
   addressUrl: string;
   extractedText: string[];
   addressList: string[];
-  correctAddress: string;
+  correctAddress: string[];
 }
 
 export default Address;

@@ -34,12 +34,12 @@ const CameraPage = () => {
   return (
     <div>
       <CameraCapture onImageCaptured={handleImageCapture} />
-      {extractedText && (
+      {/* {extractedText && (
         <div>
           <h3>Extracted Text:</h3>
           <p>{extractedText}</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -7,7 +7,8 @@ interface ApiResponse {
   completed_addresses: string[];
 }
 
-let completedAddress: string[] = []; // Store addresses globally
+let completedAddress: string[] = [];
+let imageurl = ""; 
 
 // ✅ Utility function: Convert File to Base64
 export const fileToBase64 = (file: File): Promise<string> => {
@@ -55,6 +56,8 @@ export const extractTextFromImage = async (
 
     const { url } = await uploadResponse.json();
 
+    imageurl = url; 
+
     // Step 3: Extract text from image using /api/extract
     const ocrResponse = await fetch("/api/extract", {
       method: "POST",
@@ -90,8 +93,8 @@ export const extractTextFromImage = async (
       addressUrl:url ,
       extractedText:extractedText,
       addressList:completedAddresses,
+      correctAddress:[]
     };
-    console.log("Address:", address);
 
     // Storing the completed addresses in local storage
     try {
@@ -109,7 +112,7 @@ export const extractTextFromImage = async (
     }
 
 
-    return extractedText && completedAddresses.length
+    return  extractedText && completedAddresses.length
       ? {
           extractedText,
           completedAddresses,
@@ -125,3 +128,8 @@ export const extractTextFromImage = async (
 export const getCompletedAddresses = (): string[] => {
   return completedAddress;
 };
+
+export const getImageUrl = (): string => {
+  return imageurl;
+};
+
