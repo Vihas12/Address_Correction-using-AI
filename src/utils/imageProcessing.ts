@@ -1,5 +1,7 @@
 // import { Client } from "@gradio/client";
 
+import { body } from "framer-motion/client";
+
 interface ApiResponse {
   extracted_text: string;
   completed_addresses: string[];
@@ -83,6 +85,29 @@ export const extractTextFromImage = async (
     );
     
     completedAddress = completedAddresses; // Store addresses globally
+
+    const address = { 
+      addressUrl:url ,
+      extractedText:extractedText,
+      addressList:completedAddresses,
+    };
+    console.log("Address:", address);
+
+    // Storing the completed addresses in local storage
+    try {
+      const res = await fetch("/api/addressdb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(address),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to store completed addresses");
+      }
+    }catch (error) {
+      console.error("Error storing completed addresses:", error);
+    }
+
 
     return extractedText && completedAddresses.length
       ? {

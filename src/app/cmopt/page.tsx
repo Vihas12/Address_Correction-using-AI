@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getCompletedAddresses } from "@/utils/imageProcessing";
+import Link from "next/link";
 
 // Define types for the API response
 interface ApiResponse {
@@ -54,6 +55,9 @@ export default function AddressSelector() {
           <p className="text-gray-700">{selectedAddress}</p>
         </div>
       )}
+      <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-2xl hover:bg-blue-600">
+       <Link href="/cam">Complete Address</Link>
+      </button>
     </div>
   );
 }
