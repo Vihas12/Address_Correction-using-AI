@@ -16,7 +16,8 @@ export async function POST(req: Request) {
     const result = await client.predict("/predict", [query]);
 
     // result.data[0] contains the DataFrame with address rows
-    const dataframe = result.data[0];
+    const data = result.data as [{ data: string[][] }];
+    const dataframe = data[0];
     const completedAddresses = dataframe.data.map((row: string[]) => row[0]);
 
     return NextResponse.json({ completedAddresses });

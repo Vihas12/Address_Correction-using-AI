@@ -16,9 +16,11 @@ const CameraPage = () => {
 
   const handleImageCapture = async (file: File) => {
     try {
-      const response: ApiResponse = await extractTextFromImage(file);
-      if (response.extractedText) {
+      const response = await extractTextFromImage(file);
+      if (typeof response === "object" && response !== null && "extractedText" in response) {
         setExtractedText(response.extractedText);
+      } else {
+        console.error("Unexpected response from extractTextFromImage:", response);
       }
     } catch (error) {
       console.error("Error extracting text:", error);
