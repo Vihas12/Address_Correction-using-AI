@@ -8,9 +8,9 @@ import aiimage from '@/images/ai-images.jpg';
 import easyocr from '@/images/merged-text-detection.png';
 import map from '@/images/map-images.jpg';
 
-interface Dashboard {}
 
-const Dashboard: React.FC<Dashboard> = () => {
+
+const Dashboard = () => {
     const [showMobileBlock, setShowMobileBlock] = useState<boolean>(false);
     const [isMobile, setIsMobile] = useState<boolean>(false);
     

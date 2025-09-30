@@ -35,11 +35,11 @@ export default function AboutPage() {
             <span className="font-semibold">AI Adder</span> is a smart address completion platform powered by advanced AI. It helps users auto-complete address fields quickly and accurately using models trained on real-world data.
           </p>
           <p className="mb-4 text-lg leading-relaxed">
-            Whether you're a developer integrating form inputs or a business improving user experience, AI Adder simplifies data entry for everyone.
+            Whether you&apos;re a developer integrating form inputs or a business improving user experience, AI Adder simplifies data entry for everyone.
           </p>
           <p className="mb-4 text-lg leading-relaxed">
             Our goal is to make digital interaction seamless, intuitive, and lightning-fast.
-            We're constantly improving our models and adding features to help you work smarter.
+            We&apos;re constantly improving our models and adding features to help you work smarter.
           </p>
         </motion.div>
       </div>

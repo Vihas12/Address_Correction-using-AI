@@ -1,8 +1,3 @@
-interface ApiResponse {
-  extracted_text: string;
-  completed_addresses: string[];
-}
-
 let completedAddress: string[] = [];
 let imageurl = ""; 
 

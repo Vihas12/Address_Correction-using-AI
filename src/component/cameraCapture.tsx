@@ -1,7 +1,7 @@
 
 import React, { useRef, useState, useCallback } from 'react';
 import { Camera, Image as ImageIcon, RotateCcw } from 'lucide-react';
-// import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 import { base64ToFile } from '@/utils/imageProcessing';
 
 interface CameraCaptureProps {
@@ -97,7 +97,7 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onImageCaptured }) => {
     <div className="border-3 border-blue-500 glass-panel p-4 rounded-xl w-full max-w-lg mx-auto mt-30 mb-7">
       <div className="aspect-[4/3] bg-gray-100 relative rounded-lg overflow-hidden">
         {capturedImage ? (
-          <img 
+          <Image 
             src={capturedImage} 
             alt="Captured address" 
             className="w-full h-full object-cover animate-fade-in"

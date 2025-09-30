@@ -5,10 +5,6 @@ import { useRouter } from "next/navigation";
 import CameraCapture from "@/component/cameraCapture";
 import { extractTextFromImage } from "@/utils/imageProcessing";
 
-interface ApiResponse {
-  extractedText: string;
-  completedAddresses: string[];
-}
 
 const CameraPage = () => {
   const [extractedText, setExtractedText] = useState<string>("");

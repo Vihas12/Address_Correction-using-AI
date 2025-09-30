@@ -1,8 +1,8 @@
 import  Dashboard from './dashboard/page';
 
-interface Home {}
 
-const Home: React.FC<Home> = () => {
+
+const Home = () => {
 
   return (
     <div>

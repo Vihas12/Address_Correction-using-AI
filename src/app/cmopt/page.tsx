@@ -47,6 +47,7 @@ export default function AddressSelector() {
 
       setStoreStatus("Address stored successfully!");
     } catch (err) {
+      console.error("Error storing address:", err);
       setStoreStatus("Error storing address.");
     }
   };
