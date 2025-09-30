@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CameraIcon, InfoIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image, { StaticImageData } from 'next/image';
